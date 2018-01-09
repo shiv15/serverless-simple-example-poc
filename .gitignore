@@ -1,0 +1,8 @@
+node_modules
+.git
+.serverless
+package-lock.json
+config/sample.yml
+#node_modules
+#.git
+#.serverless

@@ -1,0 +1,56 @@
+service: aws-poc
+frameworkVersion: ">=1.1.0 <2.0.0"
+provider:
+  name: aws
+  runtime: nodejs6.10
+  region: ap-south-1
+  environment:
+      RDS_USER:  ${file(./config/${opt:stage}.yml):RDS_USER}
+      RDS_PASSWORD:  ${file(./config/${opt:stage}.yml):RDS_PASSWORD}
+      RDS_HOST:  ${file(./config/${opt:stage}.yml):RDS_HOST}
+      RDS_DB:  ${file(./config/${opt:stage}.yml):RDS_DB}
+
+custom:
+#  webpackIncludeModules: true
+  optimize:
+    #external: ["knex"]
+    exclude: ["aws-sdk"]
+  serverless_region: ap-south-1
+  serverless-offline:
+    port: 3332
+    babelOptions:
+      presets: ["env"]
+
+plugins:
+    - serverless-plugin-optimize
+    - serverless-offline
+package:
+  individually: true
+functions:
+
+## core api
+  TripGet:
+    handler: index.get
+    events:
+      - http:
+          path: /customers/{id}
+          method: get
+          cors: true
+# resources:
+#   Resources:
+#     TodosDynamoDbTable:
+#       Type: 'AWS::DynamoDB::Table'
+#       DeletionPolicy: Retain
+#       Properties:
+#         AttributeDefinitions:
+#           -
+#             AttributeName: id
+#             AttributeType: S
+#         KeySchema:
+#           -
+#             AttributeName: id
+#             KeyType: HASH
+#         ProvisionedThroughput:
+#           ReadCapacityUnits: 1
+#           WriteCapacityUnits: 1
+  #      TableName: ${self:provider.environment.TEST_TABLE}

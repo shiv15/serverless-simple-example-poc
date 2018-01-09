@@ -1,0 +1,10 @@
+serverless_service_name: "logs"
+RDS_USER:  "xxx"
+RDS_PASSWORD:  "xxx"
+#RDS_HOST:  "approach.cpfapemccset.us-east-1.rds.amazonaws.com"
+          # approach-dev-cluster-1.cluster-cpfapemccset.us-east-1.rds.amazonaws.com
+
+RDS_HOST:  "xxx"
+
+RDS_PORT:  "xxx"
+RDS_DB:  "xxx"
