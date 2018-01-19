@@ -1,15 +1,9 @@
-// const DB = require('../DB');
-
+var Paginator = require('bookshelf-paginator');
 
 class Trip {
     constructor(bookshelf) {
       this.bookshelf = bookshelf;
-      // this.clientCheckin = bookshelf.Model.extend({
-      //   tableName: 'ClientCheckin',
-      // });
-      // this.Trip = bookshelf.Model.extend({
-      //   tableName: 'trip_master',
-      // });
+        this.bookshelf.plugin('bookshelf-page');
     }
     // transform on return
     toViewModel(model) {
@@ -24,16 +18,16 @@ class Trip {
       delete customer.name;
       //  delete customer.setAsPrimary;
     }
-    async getTrips(customerId) {
+    async getCustomers(customerName, pp, pg) {
       const Trip2 = this.bookshelf.Model.extend({
         tableName: 'customer',
       });
       const trip = new Trip2();
       const model = await trip
         .query((qb) => {
-            qb.where('id', '=', `${customerId}`);
+            qb.where('name', '=', `${customerName}`);
         })
-        .fetch();
+        .fetchPage({page: pg, pageSize: pp});
       return model.toJSON();
     }
   }
