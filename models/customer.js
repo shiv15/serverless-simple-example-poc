@@ -5,10 +5,7 @@ class Trip {
       this.bookshelf = bookshelf;
         this.bookshelf.plugin('bookshelf-page');
     }
-    // transform on return
     toViewModel(model) {
-      // add fields to omit or to concat/generate
-      //  model.set("name", model.get("firstName")+' ' + model.get("lastName"));
       const viewModel = model;
       viewModel.name = `${model.firstName} ${model.lastName}`;
       return viewModel;

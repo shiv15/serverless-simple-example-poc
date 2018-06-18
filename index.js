@@ -5,7 +5,6 @@ const bookshelf = require('./DB');
 module.exports.get = new ReqRes(async (req, res) => {
     const db = new bookshelf();
     const customer = new Customer(db.bookshelf);
-
       const model = await customer.getCustomers(req.params.id, req.query.pp, req.query.pg);
       db.destroy();
       res.json(model);
